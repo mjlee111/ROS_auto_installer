@@ -84,13 +84,34 @@ custom_echo "${cv}" "green"
 
 case $ubuntu in
   "18.04")
-    custom_echo "ROS melodic available!" "green"
+    custom_echo "ROS Melodic available!" "green"
     custom_echo "### ROS Melodic is the twelfth release of the Robot Operating System (ROS). ###" "yellow"
     custom_echo "### It is designed for Ubuntu 18.04 and provides a stable and reliable platform for robotic application development. ###" "yellow"
     custom_echo "### Melodic is widely adopted and offers long-term support (LTS) for developers and users. ###" "yellow"
+
+    read -n 1 -p "Press Enter to start ROS Melodic installation, or any other key to exit..."
+
+    if [[ $REPLY == "" ]]; then
+      custom_echo "Installing ROS Melodic" "green"
+      loading_animation
+      sudo apt install curl
+      curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+      sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+      sudo apt update
+      sudo apt install ros-melodic-desktop-full
+
+      echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+      source ~/.bashrc
+      sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+      sudo rosdep init
+      rosdep update
+    else
+      custom_echo "Installation Canceled" "red"
+    fi
     ;;
   "20.04")
-    custom_echo "ROS noetic, ROS2 foxy available!" "green"
+    custom_echo "ROS Noetic, ROS2 Foxy available!" "green"
     custom_echo "### ROS Noetic is the thirteenth release of the Robot Operating System (ROS). ###" "yellow"
     custom_echo "### It is intended for Ubuntu 20.04 and brings numerous improvements and new features for robotics development. ###" "yellow"
     custom_echo "### Noetic emphasizes compatibility and provides a solid foundation for building complex robotic systems. ###" "yellow"
@@ -99,15 +120,74 @@ case $ubuntu in
     custom_echo "### It is designed to work with Ubuntu 20.04 and offers significant advancements in terms of performance, reliability, and flexibility. ###" "yellow"
     custom_echo "### Foxy introduces new capabilities for distributed systems, real-time control, and enhanced security. ###" "yellow"
 
+    read -n 1 -p "Press Enter to start ROS installation, or any other key to exit..."
+
+    if [[ $REPLY == "" ]]; then
+      read -p "Enter the ROS version you want to install (noetic/foxy): " ros_version
+
+      if [[ $ros_version == "noetic" ]]; then
+        custom_echo "Installing ROS Noetic" "green"
+        loading_animation
+        sudo apt install curl
+        curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+        sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+        sudo apt update
+        sudo apt install ros-noetic-desktop-full
+
+        echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+        source ~/.bashrc
+        sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+        sudo rosdep init
+        rosdep update
+      elif [[ $ros_version == "foxy" ]]; then
+        custom_echo "Installing ROS Foxy" "green"
+        loading_animation
+        sudo apt update
+        sudo apt install curl gnupg2 lsb-release
+        curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+        sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
+
+        sudo apt update
+        sudo apt install ros-foxy-desktop
+
+        echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
+        source ~/.bashrc
+      else
+        custom_echo "Invalid ROS version. Please enter either 'noetic' or 'foxy'." "red"
+      fi
+    else
+      custom_echo "Installation Canceled" "red"
+    fi
     ;;
   "22.04")
-    custom_echo "ROS humble available!" "green"
+    custom_echo "ROS Humble available!" "green"
     custom_echo "### ROS Humble is an upcoming release of the Robot Operating System (ROS). ###" "yellow"
     custom_echo "### It is being developed for Ubuntu 22.04 and aims to further expand the capabilities of ROS for robotics applications. ###" "yellow"
-    custom_echo "### Humble is expected to bring innovative features, improved integration, and enhanced support for diverse robotic platforms. ###" "yellow"
+
+    read -n 1 -p "Press Enter to start ROS Humble installation, or any other key to exit..."
+
+    if [[ $REPLY == "" ]]; then
+      custom_echo "Installing ROS Humble" "green"
+      loading_animation
+      sudo apt install curl
+      curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+      sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+      sudo apt update
+      sudo apt install ros-humble-desktop-full
+
+      echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+      source ~/.bashrc
+      sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+      sudo rosdep init
+      rosdep update
+    else
+      custom_echo "Installation Canceled" "red"
+    fi
     ;;
   *)
-    custom_echo "ROS version not available or out of distro for this Ubuntu version. Might need to upgrade ubuntu" "red"
+    custom_echo "ROS version not available or out of distribution for this Ubuntu version. You might need to upgrade Ubuntu." "red"
     exit 1
     ;;
 esac
