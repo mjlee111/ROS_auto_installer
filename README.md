@@ -9,4 +9,4 @@
 ╚═╝░░╚═╝░╚════╝░╚═════╝░
  </div>
  
- ## ROS installer for any Ubuntu
+ ## ROS installer for any version of Ubuntu
