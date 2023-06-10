@@ -98,15 +98,19 @@ case $ubuntu in
       sudo apt install curl
       curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
       sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+      
 
-      sudo apt update
-      sudo apt install ros-melodic-desktop-full
+      sudo apt update -y
+      sudo apt install -y ros-melodic-desktop-full
+      sudo apt install -y python-catkin-tools
 
       echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
       source ~/.bashrc
-      sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+      sudo apt install -y python-rosdep python-rosinstall python-rosinstall-generator python-wstool
+      build-essential
+      sudo apt install -y python-rosdep
       sudo rosdep init
-      rosdep update
+      sudo rosdep update
 
       end_msg="ROS ${ros_version} Installed!"
       custom_echo "${end_msg}" "green"
@@ -152,8 +156,8 @@ case $ubuntu in
       elif [[ $ros_version == "foxy" ]]; then
         custom_echo "Installing ROS Foxy" "green"
         loading_animation
-        sudo apt update
-        sudo apt install curl gnupg2 lsb-release
+        sudo apt update -y
+        sudo apt install -y curl gnupg2 lsb-release
         curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
         sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
 
@@ -162,9 +166,9 @@ case $ubuntu in
 
         echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
         source ~/.bashrc
-        sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
-        sudo rosdep init
-        rosdep update
+        sudo apt install -y python3-pip
+        pip3 install -U argcomplete
+        sudo apt install python3-colcon-common-extensions
 
         
         end_msg="ROS ${ros_version} Installed!"
@@ -192,13 +196,13 @@ case $ubuntu in
       sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 
       sudo apt update
-      sudo apt install ros-humble-desktop-full
+      sudo apt install -y ros-desktop-full
 
       echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
       source ~/.bashrc
-      sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
-      sudo rosdep init
-      rosdep update
+      sudo apt install -y python3-pip
+      pip3 install -U argcomplete
+      sudo apt install python3-colcon-common-extensions
 
       end_msg="ROS ${ros_version} Installed!"
       custom_echo "${end_msg}" "green"
