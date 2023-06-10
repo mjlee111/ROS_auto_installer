@@ -106,6 +106,10 @@ case $ubuntu in
       sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
       sudo rosdep init
       rosdep update
+
+      end_msg="ROS ${ros_version} Installed!"
+      custom_echo "${end_msg}" "green"
+
     else
       custom_echo "Installation Canceled" "red"
     fi
@@ -140,6 +144,10 @@ case $ubuntu in
         sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
         sudo rosdep init
         rosdep update
+        
+        end_msg="ROS ${ros_version} Installed!"
+        custom_echo "${end_msg}" "green"
+
       elif [[ $ros_version == "foxy" ]]; then
         custom_echo "Installing ROS Foxy" "green"
         loading_animation
@@ -153,6 +161,14 @@ case $ubuntu in
 
         echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
         source ~/.bashrc
+        sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+        sudo rosdep init
+        rosdep update
+
+        
+        end_msg="ROS ${ros_version} Installed!"
+        custom_echo "${end_msg}" "green"
+
       else
         custom_echo "Invalid ROS version. Please enter either 'noetic' or 'foxy'." "red"
       fi
@@ -182,6 +198,10 @@ case $ubuntu in
       sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
       sudo rosdep init
       rosdep update
+
+      end_msg="ROS ${ros_version} Installed!"
+      custom_echo "${end_msg}" "green"
+      
     else
       custom_echo "Installation Canceled" "red"
     fi
