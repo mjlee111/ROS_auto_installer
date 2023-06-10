@@ -70,6 +70,7 @@ padding_length=$(( (terminal_width - ${#text_art}) / 2 ))
 padding=$(printf "%*s" $padding_length "")
 
 echo -e "\033[38;5;208m$padding$text_art\033[0m"
+custom_echo "GITHUB : github.com/mjlee111" "yellow"
 
 
 custom_echo "RO:BIT 17th Myeungjin Lee" "green"
