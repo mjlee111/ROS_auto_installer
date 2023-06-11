@@ -1,4 +1,3 @@
-# sex
 function custom_echo() {
   text=$1
   color=$2
